@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic English - Ogden's 850 Words</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+        body {
+            font-family: "Times New Roman", Georgia, serif;
+            font-size: 10pt;
+            line-height: 1.3;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            background: #fff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            font-size: 28pt;
+            letter-spacing: 4px;
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .header .subtitle {
+            font-size: 12pt;
+            margin-top: 5px;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .section {
+            margin-bottom: 15px;
+            break-inside: avoid;
+        }
+        .section-title {
+            font-size: 11pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            margin-bottom: 6px;
+            padding-bottom: 2px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .section-title .count {
+            font-size: 9pt;
+            font-weight: normal;
+        }
+        .word-list {
+            column-count: 4;
+            column-gap: 12px;
+            font-size: 9pt;
+        }
+        .word-list.two-col {
+            column-count: 2;
+        }
+        .word-list.three-col {
+            column-count: 3;
+        }
+        .word {
+            display: block;
+            break-inside: avoid;
+            margin-bottom: 1px;
+        }
+        .operations { width: 18%; }
+        .things-general { width: 55%; }
+        .things-picturable { width: 22%; }
+        .qualities { width: 38%; }
+        .wordorder { width: 58%; }
+
+        .row {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+        .row > .section {
+            flex: 1;
+        }
+
+        @media print {
+            body { padding: 0; }
+            .word-list { column-count: 4; }
+        }
+
+        .note {
+            font-size: 8pt;
+            color: #333;
+            margin-top: 15px;
+            border-top: 1px solid #ccc;
+            padding-top: 8px;
+            text-align: center;
+        }
+        .examples {
+            font-size: 9pt;
+            line-height: 1.4;
+        }
+        .example-item {
+            margin-bottom: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Basic English</h1>
+        <div class="subtitle">Ogden's 850 Core Words &middot; 可打印版</div>
+    </div>
+
+    <div class="row">
+        <div class="section operations">
+            <div class="section-title">Operations <span class="count">100</span></div>
+            <div class="word-list">
+                <span class="word">come</span>
+                <span class="word">get</span>
+                <span class="word">give</span>
+                <span class="word">go</span>
+                <span class="word">keep</span>
+                <span class="word">let</span>
+                <span class="word">make</span>
+                <span class="word">put</span>
+                <span class="word">seem</span>
+                <span class="word">take</span>
+                <span class="word">be</span>
+                <span class="word">do</span>
+                <span class="word">have</span>
+                <span class="word">say</span>
+                <span class="word">see</span>
+                <span class="word">send</span>
+                <span class="word">may</span>
+                <span class="word">will</span>
+                <span class="word">about</span>
+                <span class="word">across</span>
+                <span class="word">after</span>
+                <span class="word">against</span>
+                <span class="word">among</span>
+                <span class="word">at</span>
+                <span class="word">before</span>
+                <span class="word">between</span>
+                <span class="word">by</span>
+                <span class="word">down</span>
+                <span class="word">from</span>
+                <span class="word">in</span>
+                <span class="word">off</span>
+                <span class="word">on</span>
+                <span class="word">over</span>
+                <span class="word">through</span>
+                <span class="word">to</span>
+                <span class="word">under</span>
+                <span class="word">up</span>
+                <span class="word">with</span>
+                <span class="word">as</span>
+                <span class="word">for</span>
+                <span class="word">of</span>
+                <span class="word">till</span>
+                <span class="word">than</span>
+                <span class="word">a</span>
+                <span class="word">the</span>
+                <span class="word">all</span>
+                <span class="word">any</span>
+                <span class="word">every</span>
+                <span class="word">no</span>
+                <span class="word">other</span>
+                <span class="word">some</span>
+                <span class="word">such</span>
+                <span class="word">that</span>
+                <span class="word">this</span>
+                <span class="word">I</span>
+                <span class="word">he</span>
+                <span class="word">you</span>
+                <span class="word">who</span>
+                <span class="word">and</span>
+                <span class="word">because</span>
+                <span class="word">but</span>
+                <span class="word">or</span>
+                <span class="word">if</span>
+                <span class="word">though</span>
+                <span class="word">while</span>
+                <span class="word">how</span>
+                <span class="word">when</span>
+                <span class="word">where</span>
+                <span class="word">why</span>
+                <span class="word">again</span>
+                <span class="word">ever</span>
+                <span class="word">far</span>
+                <span class="word">forward</span>
+                <span class="word">here</span>
+                <span class="word">near</span>
+                <span class="word">now</span>
+                <span class="word">out</span>
+                <span class="word">still</span>
+                <span class="word">then</span>
+                <span class="word">there</span>
+                <span class="word">together</span>
+                <span class="word">well</span>
+                <span class="word">almost</span>
+                <span class="word">enough</span>
+                <span class="word">even</span>
+                <span class="word">little</span>
+                <span class="word">much</span>
+                <span class="word">not</span>
+                <span class="word">only</span>
+                <span class="word">quite</span>
+                <span class="word">so</span>
+                <span class="word">very</span>
+                <span class="word">tomorrow</span>
+                <span class="word">yesterday</span>
+                <span class="word">north</span>
+                <span class="word">south</span>
+                <span class="word">east</span>
+                <span class="word">west</span>
+                <span class="word">please</span>
+                <span class="word">yes</span>
+            </div>
+        </div>
+
+        <div class="section things-general">
+            <div class="section-title">Things &mdash; 400 General <span class="count">400</span></div>
+            <div class="word-list">
+                <span class="word">account</span>
+                <span class="word">act</span>
+                <span class="word">addition</span>
+                <span class="word">adjustment</span>
+                <span class="word">advertisement</span>
+                <span class="word">agreement</span>
+                <span class="word">air</span>
+                <span class="word">amount</span>
+                <span class="word">amusement</span>
+                <span class="word">animal</span>
+                <span class="word">answer</span>
+                <span class="word">apparatus</span>
+                <span class="word">approval</span>
+                <span class="word">argument</span>
+                <span class="word">art</span>
+                <span class="word">attack</span>
+                <span class="word">attempt</span>
+                <span class="word">attention</span>
+                <span class="word">attraction</span>
+                <span class="word">authority</span>
+                <span class="word">back</span>
+                <span class="word">balance</span>
+                <span class="word">base</span>
+                <span class="word">behavior</span>
+                <span class="word">belief</span>
+                <span class="word">birth</span>
+                <span class="word">bit</span>
+                <span class="word">bite</span>
+                <span class="word">blood</span>
+                <span class="word">blow</span>
+                <span class="word">body</span>
+                <span class="word">brass</span>
+                <span class="word">bread</span>
+                <span class="word">breath</span>
+                <span class="word">brother</span>
+                <span class="word">building</span>
+                <span class="word">burn</span>
+                <span class="word">burst</span>
+                <span class="word">business</span>
+                <span class="word">butter</span>
+                <span class="word">canvas</span>
+                <span class="word">care</span>
+                <span class="word">cause</span>
+                <span class="word">chalk</span>
+                <span class="word">chance</span>
+                <span class="word">change</span>
+                <span class="word">cloth</span>
+                <span class="word">coal</span>
+                <span class="word">color</span>
+                <span class="word">comfort</span>
+                <span class="word">committee</span>
+                <span class="word">company</span>
+                <span class="word">comparison</span>
+                <span class="word">competition</span>
+                <span class="word">condition</span>
+                <span class="word">connection</span>
+                <span class="word">control</span>
+                <span class="word">cook</span>
+                <span class="word">copper</span>
+                <span class="word">copy</span>
+                <span class="word">cork</span>
+                <span class="word">cotton</span>
+                <span class="word">cough</span>
+                <span class="word">country</span>
+                <span class="word">cover</span>
+                <span class="word">crack</span>
+                <span class="word">credit</span>
+                <span class="word">crime</span>
+                <span class="word">crush</span>
+                <span class="word">cry</span>
+                <span class="word">current</span>
+                <span class="word">curve</span>
+                <span class="word">damage</span>
+                <span class="word">danger</span>
+                <span class="word">daughter</span>
+                <span class="word">day</span>
+                <span class="word">death</span>
+                <span class="word">debt</span>
+                <span class="word">decision</span>
+                <span class="word">degree</span>
+                <span class="word">design</span>
+                <span class="word">desire</span>
+                <span class="word">destruction</span>
+                <span class="word">detail</span>
+                <span class="word">development</span>
+                <span class="word">digestion</span>
+                <span class="word">direction</span>
+                <span class="word">discovery</span>
+                <span class="word">discussion</span>
+                <span class="word">disease</span>
+                <span class="word">disgust</span>
+                <span class="word">distance</span>
+                <span class="word">distribution</span>
+                <span class="word">division</span>
+                <span class="word">doubt</span>
+                <span class="word">drink</span>
+                <span class="word">driving</span>
+                <span class="word">dust</span>
+                <span class="word">earth</span>
+                <span class="word">edge</span>
+                <span class="word">education</span>
+                <span class="word">effect</span>
+                <span class="word">end</span>
+                <span class="word">error</span>
+                <span class="word">event</span>
+                <span class="word">example</span>
+                <span class="word">exchange</span>
+                <span class="word">existence</span>
+                <span class="word">expansion</span>
+                <span class="word">experience</span>
+                <span class="word">expert</span>
+                <span class="word">fact</span>
+                <span class="word">fall</span>
+                <span class="word">family</span>
+                <span class="word">father</span>
+                <span class="word">fear</span>
+                <span class="word">feeling</span>
+                <span class="word">fiction</span>
+                <span class="word">field</span>
+                <span class="word">fight</span>
+                <span class="word">fire</span>
+                <span class="word">flame</span>
+                <span class="word">flight</span>
+                <span class="word">flower</span>
+                <span class="word">fold</span>
+                <span class="word">food</span>
+                <span class="word">force</span>
+                <span class="word">form</span>
+                <span class="word">friend</span>
+                <span class="word">front</span>
+                <span class="word">fruit</span>
+                <span class="word">glass</span>
+                <span class="word">gold</span>
+                <span class="word">government</span>
+                <span class="word">grain</span>
+                <span class="word">grass</span>
+                <span class="word">grip</span>
+                <span class="word">group</span>
+                <span class="word">growth</span>
+                <span class="word">guide</span>
+                <span class="word">harbor</span>
+                <span class="word">harmony</span>
+                <span class="word">hate</span>
+                <span class="word">hearing</span>
+                <span class="word">heat</span>
+                <span class="word">help</span>
+                <span class="word">history</span>
+                <span class="word">hole</span>
+                <span class="word">hope</span>
+                <span class="word">hour</span>
+                <span class="word">humor</span>
+                <span class="word">ice</span>
+                <span class="word">idea</span>
+                <span class="word">impulse</span>
+                <span class="word">increase</span>
+                <span class="word">industry</span>
+                <span class="word">ink</span>
+                <span class="word">insect</span>
+                <span class="word">instrument</span>
+                <span class="word">insurance</span>
+                <span class="word">interest</span>
+                <span class="word">invention</span>
+                <span class="word">iron</span>
+                <span class="word">jelly</span>
+                <span class="word">join</span>
+                <span class="word">journey</span>
+                <span class="word">judge</span>
+                <span class="word">jump</span>
+                <span class="word">kick</span>
+                <span class="word">kiss</span>
+                <span class="word">knowledge</span>
+                <span class="word">land</span>
+                <span class="word">language</span>
+                <span class="word">laugh</span>
+                <span class="word">law</span>
+                <span class="word">lead</span>
+                <span class="word">learning</span>
+                <span class="word">leather</span>
+                <span class="word">letter</span>
+                <span class="word">level</span>
+                <span class="word">lift</span>
+                <span class="word">light</span>
+                <span class="word">limit</span>
+                <span class="word">linen</span>
+                <span class="word">liquid</span>
+                <span class="word">list</span>
+                <span class="word">look</span>
+                <span class="word">loss</span>
+                <span class="word">love</span>
+                <span class="word">machine</span>
+                <span class="word">man</span>
+                <span class="word">manager</span>
+                <span class="word">mark</span>
+                <span class="word">market</span>
+                <span class="word">mass</span>
+                <span class="word">meal</span>
+                <span class="word">measure</span>
+                <span class="word">meat</span>
+                <span class="word">meeting</span>
+                <span class="word">memory</span>
+                <span class="word">metal</span>
+                <span class="word">middle</span>
+                <span class="word">milk</span>
+                <span class="word">mind</span>
+                <span class="word">mine</span>
+                <span class="word">minute</span>
+                <span class="word">mist</span>
+                <span class="word">money</span>
+                <span class="word">month</span>
+                <span class="word">morning</span>
+                <span class="word">mother</span>
+                <span class="word">motion</span>
+                <span class="word">mountain</span>
+                <span class="word">move</span>
+                <span class="word">music</span>
+                <span class="word">name</span>
+                <span class="word">nation</span>
+                <span class="word">need</span>
+                <span class="word">news</span>
+                <span class="word">night</span>
+                <span class="word">noise</span>
+                <span class="word">note</span>
+                <span class="word">number</span>
+                <span class="word">observation</span>
+                <span class="word">offer</span>
+                <span class="word">oil</span>
+                <span class="word">operation</span>
+                <span class="word">opinion</span>
+                <span class="word">order</span>
+                <span class="word">organization</span>
+                <span class="word">ornament</span>
+                <span class="word">owner</span>
+                <span class="word">page</span>
+                <span class="word">pain</span>
+                <span class="word">paint</span>
+                <span class="word">paper</span>
+                <span class="word">part</span>
+                <span class="word">paste</span>
+                <span class="word">payment</span>
+                <span class="word">peace</span>
+                <span class="word">person</span>
+                <span class="word">place</span>
+                <span class="word">plant</span>
+                <span class="word">play</span>
+                <span class="word">pleasure</span>
+                <span class="word">point</span>
+                <span class="word">poison</span>
+                <span class="word">polish</span>
+                <span class="word">porter</span>
+                <span class="word">position</span>
+                <span class="word">powder</span>
+                <span class="word">power</span>
+                <span class="word">price</span>
+                <span class="word">print</span>
+                <span class="word">process</span>
+                <span class="word">produce</span>
+                <span class="word">profit</span>
+                <span class="word">property</span>
+                <span class="word">prose</span>
+                <span class="word">protest</span>
+                <span class="word">pull</span>
+                <span class="word">punishment</span>
+                <span class="word">purpose</span>
+                <span class="word">push</span>
+                <span class="word">quality</span>
+                <span class="word">question</span>
+                <span class="word">rain</span>
+                <span class="word">range</span>
+                <span class="word">rate</span>
+                <span class="word">ray</span>
+                <span class="word">reaction</span>
+                <span class="word">reading</span>
+                <span class="word">reason</span>
+                <span class="word">record</span>
+                <span class="word">regret</span>
+                <span class="word">relation</span>
+                <span class="word">religion</span>
+                <span class="word">representative</span>
+                <span class="word">request</span>
+                <span class="word">respect</span>
+                <span class="word">rest</span>
+                <span class="word">reward</span>
+                <span class="word">rhythm</span>
+                <span class="word">rice</span>
+                <span class="word">river</span>
+                <span class="word">road</span>
+                <span class="word">roll</span>
+                <span class="word">room</span>
+                <span class="word">rub</span>
+                <span class="word">rule</span>
+                <span class="word">run</span>
+                <span class="word">salt</span>
+                <span class="word">sand</span>
+                <span class="word">scale</span>
+                <span class="word">science</span>
+                <span class="word">sea</span>
+                <span class="word">seat</span>
+                <span class="word">secretary</span>
+                <span class="word">selection</span>
+                <span class="word">self</span>
+                <span class="word">sense</span>
+                <span class="word">servant</span>
+                <span class="word">sex</span>
+                <span class="word">shade</span>
+                <span class="word">shake</span>
+                <span class="word">shame</span>
+                <span class="word">shock</span>
+                <span class="word">side</span>
+                <span class="word">sign</span>
+                <span class="word">silk</span>
+                <span class="word">silver</span>
+                <span class="word">sister</span>
+                <span class="word">size</span>
+                <span class="word">sky</span>
+                <span class="word">sleep</span>
+                <span class="word">slip</span>
+                <span class="word">slope</span>
+                <span class="word">smash</span>
+                <span class="word">smell</span>
+                <span class="word">smile</span>
+                <span class="word">smoke</span>
+                <span class="word">sneeze</span>
+                <span class="word">snow</span>
+                <span class="word">soap</span>
+                <span class="word">society</span>
+                <span class="word">son</span>
+                <span class="word">song</span>
+                <span class="word">sort</span>
+                <span class="word">sound</span>
+                <span class="word">soup</span>
+                <span class="word">space</span>
+                <span class="word">stage</span>
+                <span class="word">start</span>
+                <span class="word">statement</span>
+                <span class="word">steam</span>
+                <span class="word">steel</span>
+                <span class="word">step</span>
+                <span class="word">stitch</span>
+                <span class="word">stone</span>
+                <span class="word">stop</span>
+                <span class="word">story</span>
+                <span class="word">stretch</span>
+                <span class="word">structure</span>
+                <span class="word">substance</span>
+                <span class="word">sugar</span>
+                <span class="word">suggestion</span>
+                <span class="word">summer</span>
+                <span class="word">support</span>
+                <span class="word">surprise</span>
+                <span class="word">swim</span>
+                <span class="word">system</span>
+                <span class="word">talk</span>
+                <span class="word">taste</span>
+                <span class="word">tax</span>
+                <span class="word">teaching</span>
+                <span class="word">tendency</span>
+                <span class="word">test</span>
+                <span class="word">theory</span>
+                <span class="word">thing</span>
+                <span class="word">thought</span>
+                <span class="word">thunder</span>
+                <span class="word">time</span>
+                <span class="word">tin</span>
+                <span class="word">top</span>
+                <span class="word">touch</span>
+                <span class="word">trade</span>
+                <span class="word">transport</span>
+                <span class="word">trick</span>
+                <span class="word">trouble</span>
+                <span class="word">turn</span>
+                <span class="word">twist</span>
+                <span class="word">unit</span>
+                <span class="word">use</span>
+                <span class="word">value</span>
+                <span class="word">verse</span>
+                <span class="word">vessel</span>
+                <span class="word">view</span>
+                <span class="word">voice</span>
+                <span class="word">walk</span>
+                <span class="word">war</span>
+                <span class="word">wash</span>
+                <span class="word">waste</span>
+                <span class="word">water</span>
+                <span class="word">wave</span>
+                <span class="word">wax</span>
+                <span class="word">way</span>
+                <span class="word">weather</span>
+                <span class="word">week</span>
+                <span class="word">weight</span>
+                <span class="word">wind</span>
+                <span class="word">wine</span>
+                <span class="word">winter</span>
+                <span class="word">woman</span>
+                <span class="word">wood</span>
+                <span class="word">wool</span>
+                <span class="word">word</span>
+                <span class="word">work</span>
+                <span class="word">wound</span>
+                <span class="word">writing</span>
+                <span class="word">year</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="section things-picturable">
+            <div class="section-title">Things &mdash; 200 Picturable <span class="count">200</span></div>
+            <div class="word-list three-col">
+                <span class="word">angle</span>
+                <span class="word">ant</span>
+                <span class="word">apple</span>
+                <span class="word">arch</span>
+                <span class="word">arm</span>
+                <span class="word">army</span>
+                <span class="word">baby</span>
+                <span class="word">bag</span>
+                <span class="word">ball</span>
+                <span class="word">band</span>
+                <span class="word">basin</span>
+                <span class="word">basket</span>
+                <span class="word">bath</span>
+                <span class="word">bed</span>
+                <span class="word">bee</span>
+                <span class="word">bell</span>
+                <span class="word">berry</span>
+                <span class="word">bird</span>
+                <span class="word">blade</span>
+                <span class="word">board</span>
+                <span class="word">boat</span>
+                <span class="word">bone</span>
+                <span class="word">book</span>
+                <span class="word">boot</span>
+                <span class="word">bottle</span>
+                <span class="word">box</span>
+                <span class="word">boy</span>
+                <span class="word">brain</span>
+                <span class="word">brake</span>
+                <span class="word">branch</span>
+                <span class="word">brick</span>
+                <span class="word">bridge</span>
+                <span class="word">brush</span>
+                <span class="word">bucket</span>
+                <span class="word">bulb</span>
+                <span class="word">button</span>
+                <span class="word">cake</span>
+                <span class="word">camera</span>
+                <span class="word">card</span>
+                <span class="word">cart</span>
+                <span class="word">carriage</span>
+                <span class="word">cat</span>
+                <span class="word">chain</span>
+                <span class="word">cheese</span>
+                <span class="word">chest</span>
+                <span class="word">chin</span>
+                <span class="word">church</span>
+                <span class="word">circle</span>
+                <span class="word">clock</span>
+                <span class="word">cloud</span>
+                <span class="word">coat</span>
+                <span class="word">collar</span>
+                <span class="word">comb</span>
+                <span class="word">cord</span>
+                <span class="word">cow</span>
+                <span class="word">cup</span>
+                <span class="word">curtain</span>
+                <span class="word">cushion</span>
+                <span class="word">dog</span>
+                <span class="word">door</span>
+                <span class="word">drain</span>
+                <span class="word">drawer</span>
+                <span class="word">dress</span>
+                <span class="word">drop</span>
+                <span class="word">ear</span>
+                <span class="word">egg</span>
+                <span class="word">engine</span>
+                <span class="word">eye</span>
+                <span class="word">face</span>
+                <span class="word">farm</span>
+                <span class="word">feather</span>
+                <span class="word">finger</span>
+                <span class="word">fish</span>
+                <span class="word">flag</span>
+                <span class="word">floor</span>
+                <span class="word">fly</span>
+                <span class="word">foot</span>
+                <span class="word">fork</span>
+                <span class="word">fowl</span>
+                <span class="word">frame</span>
+                <span class="word">garden</span>
+                <span class="word">girl</span>
+                <span class="word">glove</span>
+                <span class="word">goat</span>
+                <span class="word">gun</span>
+                <span class="word">hair</span>
+                <span class="word">hammer</span>
+                <span class="word">hand</span>
+                <span class="word">hat</span>
+                <span class="word">head</span>
+                <span class="word">heart</span>
+                <span class="word">hook</span>
+                <span class="word">horn</span>
+                <span class="word">horse</span>
+                <span class="word">hospital</span>
+                <span class="word">house</span>
+                <span class="word">island</span>
+                <span class="word">jewel</span>
+                <span class="word">kettle</span>
+                <span class="word">key</span>
+                <span class="word">knee</span>
+                <span class="word">knife</span>
+                <span class="word">knot</span>
+                <span class="word">leaf</span>
+                <span class="word">leg</span>
+                <span class="word">library</span>
+                <span class="word">line</span>
+                <span class="word">lip</span>
+                <span class="word">lock</span>
+                <span class="word">map</span>
+                <span class="word">match</span>
+                <span class="word">monkey</span>
+                <span class="word">moon</span>
+                <span class="word">mouth</span>
+                <span class="word">muscle</span>
+                <span class="word">nail</span>
+                <span class="word">neck</span>
+                <span class="word">needle</span>
+                <span class="word">nerve</span>
+                <span class="word">net</span>
+                <span class="word">nose</span>
+                <span class="word">nut</span>
+                <span class="word">office</span>
+                <span class="word">orange</span>
+                <span class="word">oven</span>
+                <span class="word">parcel</span>
+                <span class="word">pen</span>
+                <span class="word">pencil</span>
+                <span class="word">picture</span>
+                <span class="word">pig</span>
+                <span class="word">pin</span>
+                <span class="word">pipe</span>
+                <span class="word">plane</span>
+                <span class="word">plate</span>
+                <span class="word">plough</span>
+                <span class="word">pocket</span>
+                <span class="word">pot</span>
+                <span class="word">potato</span>
+                <span class="word">prison</span>
+                <span class="word">pump</span>
+                <span class="word">rail</span>
+                <span class="word">rat</span>
+                <span class="word">receipt</span>
+                <span class="word">ring</span>
+                <span class="word">rod</span>
+                <span class="word">roof</span>
+                <span class="word">root</span>
+                <span class="word">sail</span>
+                <span class="word">school</span>
+                <span class="word">scissors</span>
+                <span class="word">screw</span>
+                <span class="word">seed</span>
+                <span class="word">sheep</span>
+                <span class="word">shelf</span>
+                <span class="word">ship</span>
+                <span class="word">shirt</span>
+                <span class="word">shoe</span>
+                <span class="word">skin</span>
+                <span class="word">skirt</span>
+                <span class="word">snake</span>
+                <span class="word">sock</span>
+                <span class="word">spade</span>
+                <span class="word">sponge</span>
+                <span class="word">spoon</span>
+                <span class="word">spring</span>
+                <span class="word">square</span>
+                <span class="word">stamp</span>
+                <span class="word">star</span>
+                <span class="word">station</span>
+                <span class="word">stem</span>
+                <span class="word">stick</span>
+                <span class="word">stocking</span>
+                <span class="word">stomach</span>
+                <span class="word">store</span>
+                <span class="word">street</span>
+                <span class="word">sun</span>
+                <span class="word">table</span>
+                <span class="word">tail</span>
+                <span class="word">thread</span>
+                <span class="word">throat</span>
+                <span class="word">thumb</span>
+                <span class="word">ticket</span>
+                <span class="word">toe</span>
+                <span class="word">tongue</span>
+                <span class="word">tooth</span>
+                <span class="word">town</span>
+                <span class="word">train</span>
+                <span class="word">tray</span>
+                <span class="word">tree</span>
+                <span class="word">trousers</span>
+                <span class="word">umbrella</span>
+                <span class="word">wall</span>
+                <span class="word">watch</span>
+                <span class="word">wheel</span>
+                <span class="word">whip</span>
+                <span class="word">whistle</span>
+                <span class="word">window</span>
+                <span class="word">wing</span>
+                <span class="word">wire</span>
+                <span class="word">worm</span>
+            </div>
+        </div>
+
+        <div class="section qualities">
+            <div class="section-title">Qualities &mdash; 100 General <span class="count">100</span></div>
+            <div class="word-list three-col">
+                <span class="word">able</span>
+                <span class="word">acid</span>
+                <span class="word">angry</span>
+                <span class="word">automatic</span>
+                <span class="word">beautiful</span>
+                <span class="word">black</span>
+                <span class="word">boiling</span>
+                <span class="word">bright</span>
+                <span class="word">broken</span>
+                <span class="word">brown</span>
+                <span class="word">cheap</span>
+                <span class="word">chemical</span>
+                <span class="word">chief</span>
+                <span class="word">clean</span>
+                <span class="word">clear</span>
+                <span class="word">common</span>
+                <span class="word">complex</span>
+                <span class="word">conscious</span>
+                <span class="word">cut</span>
+                <span class="word">deep</span>
+                <span class="word">dependent</span>
+                <span class="word">early</span>
+                <span class="word">elastic</span>
+                <span class="word">electric</span>
+                <span class="word">equal</span>
+                <span class="word">fat</span>
+                <span class="word">fertile</span>
+                <span class="word">first</span>
+                <span class="word">fixed</span>
+                <span class="word">flat</span>
+                <span class="word">free</span>
+                <span class="word">frequent</span>
+                <span class="word">full</span>
+                <span class="word">general</span>
+                <span class="word">good</span>
+                <span class="word">great</span>
+                <span class="word">grey</span>
+                <span class="word">hanging</span>
+                <span class="word">happy</span>
+                <span class="word">hard</span>
+                <span class="word">healthy</span>
+                <span class="word">high</span>
+                <span class="word">hollow</span>
+                <span class="word">important</span>
+                <span class="word">kind</span>
+                <span class="word">like</span>
+                <span class="word">living</span>
+                <span class="word">long</span>
+                <span class="word">male</span>
+                <span class="word">married</span>
+                <span class="word">material</span>
+                <span class="word">medical</span>
+                <span class="word">military</span>
+                <span class="word">natural</span>
+                <span class="word">necessary</span>
+                <span class="word">new</span>
+                <span class="word">normal</span>
+                <span class="word">open</span>
+                <span class="word">parallel</span>
+                <span class="word">past</span>
+                <span class="word">physical</span>
+                <span class="word">political</span>
+                <span class="word">poor</span>
+                <span class="word">possible</span>
+                <span class="word">present</span>
+                <span class="word">private</span>
+                <span class="word">probable</span>
+                <span class="word">quick</span>
+                <span class="word">quiet</span>
+                <span class="word">ready</span>
+                <span class="word">red</span>
+                <span class="word">regular</span>
+                <span class="word">responsible</span>
+                <span class="word">right</span>
+                <span class="word">round</span>
+                <span class="word">same</span>
+                <span class="word">second</span>
+                <span class="word">separate</span>
+                <span class="word">serious</span>
+                <span class="word">sharp</span>
+                <span class="word">smooth</span>
+                <span class="word">sticky</span>
+                <span class="word">stiff</span>
+                <span class="word">straight</span>
+                <span class="word">strong</span>
+                <span class="word">sudden</span>
+                <span class="word">sweet</span>
+                <span class="word">tall</span>
+                <span class="word">thick</span>
+                <span class="word">tight</span>
+                <span class="word">tired</span>
+                <span class="word">true</span>
+                <span class="word">violent</span>
+                <span class="word">waiting</span>
+                <span class="word">warm</span>
+                <span class="word">wet</span>
+                <span class="word">wide</span>
+                <span class="word">wise</span>
+                <span class="word">yellow</span>
+                <span class="word">young</span>
+            </div>
+
+            <div class="section-title" style="margin-top:10px">Qualities &mdash; 50 Opposites <span class="count">50</span></div>
+            <div class="word-list three-col">
+                <span class="word">awake</span>
+                <span class="word">bad</span>
+                <span class="word">bent</span>
+                <span class="word">bitter</span>
+                <span class="word">blue</span>
+                <span class="word">certain</span>
+                <span class="word">cold</span>
+                <span class="word">complete</span>
+                <span class="word">cruel</span>
+                <span class="word">dark</span>
+                <span class="word">dead</span>
+                <span class="word">dear</span>
+                <span class="word">delicate</span>
+                <span class="word">different</span>
+                <span class="word">dirty</span>
+                <span class="word">dry</span>
+                <span class="word">false</span>
+                <span class="word">feeble</span>
+                <span class="word">female</span>
+                <span class="word">foolish</span>
+                <span class="word">future</span>
+                <span class="word">green</span>
+                <span class="word">ill</span>
+                <span class="word">last</span>
+                <span class="word">late</span>
+                <span class="word">left</span>
+                <span class="word">loose</span>
+                <span class="word">loud</span>
+                <span class="word">low</span>
+                <span class="word">mixed</span>
+                <span class="word">narrow</span>
+                <span class="word">old</span>
+                <span class="word">opposite</span>
+                <span class="word">public</span>
+                <span class="word">rough</span>
+                <span class="word">sad</span>
+                <span class="word">safe</span>
+                <span class="word">secret</span>
+                <span class="word">short</span>
+                <span class="word">shut</span>
+                <span class="word">simple</span>
+                <span class="word">slow</span>
+                <span class="word">small</span>
+                <span class="word">soft</span>
+                <span class="word">solid</span>
+                <span class="word">special</span>
+                <span class="word">strange</span>
+                <span class="word">thin</span>
+                <span class="word">white</span>
+                <span class="word">wrong</span>
+            </div>
+        </div>
+
+        <div class="section wordorder">
+            <div class="section-title">Examples of Word Order</div>
+            <div class="examples">
+                <div class="example-item">the camera</div>
+                <div class="example-item">man who</div>
+                <div class="example-item">made an</div>
+                <div class="example-item">attempt to</div>
+                <div class="example-item">take a</div>
+                <div class="example-item">moving picture</div>
+                <div class="example-item">of the society</div>
+                <div class="example-item">women before</div>
+                <div class="example-item">they got their</div>
+                <div class="example-item">hats off</div>
+                <div class="example-item">did not get off</div>
+                <div class="example-item">the ship till</div>
+                <div class="example-item">he was questioned</div>
+                <div class="example-item">by the police</div>
+                <div class="example-item">we will give</div>
+                <div class="example-item">simple rules</div>
+                <div class="example-item">covering the</div>
+                <div class="example-item">formation of</div>
+                <div class="example-item">plurals compounds</div>
+                <div class="example-item">derivatives</div>
+                <div class="example-item">comparatives and</div>
+                <div class="example-item">adverbs</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Basic English</strong> &mdash; Designed by C.K. Ogden (1930). The 850 core words cover 90% of concepts in the Oxford Pocket English Dictionary.<br>
+        本页可直接打印（建议A4横向或纵向），也可复制到 Word 中进一步编辑。
+    </div>
+</body>
+</html>
