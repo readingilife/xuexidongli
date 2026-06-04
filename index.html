@@ -309,27 +309,49 @@
             padding: 10px 16px;
             justify-content: center;
             align-items: center;
-            gap: 16px;
         }
-        .mobile-contact-bar a {
+        .mobile-contact-bar button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 24px;
             font-size: 14px;
             font-weight: 600;
-            text-decoration: none;
             color: #fff;
-            flex: 1;
-            max-width: 160px;
-        }
-        .mobile-contact-bar .btn-call {
             background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 320px;
         }
-        .mobile-contact-bar .btn-wechat {
-            background: linear-gradient(135deg, #07c160, #05a350);
+        .mobile-contact-bar button:active {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        /* 复制提示 toast */
+        .copy-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 300;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .copy-toast.show {
+            opacity: 1;
         }
 
         /* 打印优化 */
@@ -355,9 +377,30 @@
 
 <!-- 移动端底部悬浮联系方式 -->
 <div class="mobile-contact-bar">
-    <a href="tel:13488823742" class="btn-call">📞 拨打电话</a>
-    <a href="weixin://" class="btn-wechat">💬 微信同号</a>
+    <button onclick="copyContact()">📋 电话：13488823742（微信同号）</button>
 </div>
+<div class="copy-toast" id="copyToast">已复制<br>请去微信加好友</div>
+<script>
+function copyContact() {
+    const text = '13488823742';
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(showToast);
+    } else {
+        const input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast();
+    }
+}
+function showToast() {
+    const toast = document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
+</script>
 
 <!-- 顶部导航 -->
 <nav class="top-bar">
