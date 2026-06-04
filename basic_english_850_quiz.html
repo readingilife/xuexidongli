@@ -1070,7 +1070,10 @@
             `).join('');
 
             optionsContainer.querySelectorAll('.option').forEach(opt => {
-                opt.addEventListener('click', () => checkAnswer(opt.dataset.word));
+                opt.addEventListener('click', () => {
+                    pronounceWord(opt.dataset.word);
+                    setTimeout(() => checkAnswer(opt.dataset.word), 600);
+                });
             });
         }
 
@@ -1093,6 +1096,8 @@
             optionsContainer.querySelectorAll('.option').forEach(opt => {
                 opt.addEventListener('click', () => checkMeaning(opt.dataset.meaning));
             });
+
+            setTimeout(pronounceCurrentWord, 500);
         }
 
         function showListenToWrite(word, data) {
@@ -1107,10 +1112,10 @@
             setTimeout(pronounceCurrentWord, 500);
         }
 
-        function pronounceCurrentWord() {
+        function pronounceWord(word) {
             if ('speechSynthesis' in window) {
                 speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(currentWord);
+                const utterance = new SpeechSynthesisUtterance(word);
                 utterance.lang = 'en-US';
                 utterance.rate = 0.9;
                 utterance.pitch = 1.1;
@@ -1124,6 +1129,10 @@
                 }
                 speechSynthesis.speak(utterance);
             }
+        }
+
+        function pronounceCurrentWord() {
+            pronounceWord(currentWord);
         }
 
         function checkAnswer(selectedWord) {
