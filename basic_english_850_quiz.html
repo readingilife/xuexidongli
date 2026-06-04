@@ -274,12 +274,7 @@
     <div class="container">
         <div class="header">
             <h1>📚 Basic English 850</h1>
-            <p>通过三种方式学习 850 个核心英语单词</p>
-        </div>
-        <div class="nav">
-            <button class="nav-btn active" data-mode="1">中文选英文</button>
-            <button class="nav-btn" data-mode="2">英文选中文</button>
-            <button class="nav-btn" data-mode="3">听音写单词</button>
+            <p>三种方式随机出现，学习 850 个核心英语单词</p>
         </div>
         <div class="stats-bar">
             <div class="stat">
@@ -1013,15 +1008,6 @@
         }
 
         function setupEventListeners() {
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    mode = parseInt(btn.dataset.mode);
-                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    loadQuestion();
-                });
-            });
-
             document.getElementById('nextBtn').addEventListener('click', loadQuestion);
             document.getElementById('listenBtn').addEventListener('click', pronounceCurrentWord);
             document.getElementById('submitBtn').addEventListener('click', checkWrittenAnswer);
@@ -1048,6 +1034,7 @@
 
         function loadQuestion() {
             answered = false;
+            mode = Math.floor(Math.random() * 3) + 1;
             const word = getRandomWord();
             currentWord = word;
             const data = wordData[word];
