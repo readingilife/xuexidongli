@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>学习系统框架</title>
+    <title>学习力</title>
+    <link rel="icon" type="image/svg+xml" href="icon/学习.svg">
     <style>
         :root {
             --c1: #FF6B6B; --c1-light: #FFF0F0;
@@ -55,6 +56,13 @@
             color: var(--text);
             white-space: nowrap;
             flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .logo-icon {
+            width: 22px;
+            height: 22px;
         }
         .back-link {
             flex: 0 0 auto;
@@ -275,7 +283,7 @@
 <!-- 顶部导航 -->
 <nav class="top-bar">
     <div class="top-bar-inner">
-        <div class="logo">学习系统框架</div>
+        <div class="logo"><img src="icon/学习.svg" class="logo-icon" alt="">学习力</div>
         <a href="index.html" class="back-link">← 返回</a>
     </div>
 </nav>
