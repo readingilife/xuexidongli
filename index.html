@@ -97,6 +97,7 @@
         .grade-nav a[href="#home"]:hover, .grade-nav a[href="#home"].active { background: var(--c1); border-color: var(--c1); }
         .grade-nav a[href="#about"]:hover, .grade-nav a[href="#about"].active { background: var(--c2); border-color: var(--c2); }
         .grade-nav a[href="#methods"]:hover, .grade-nav a[href="#methods"].active { background: var(--c3); border-color: var(--c3); }
+        .grade-nav a[href="#tools"]:hover, .grade-nav a[href="#tools"].active { background: var(--c5); border-color: var(--c5); }
         .grade-nav a[href="#resources"]:hover, .grade-nav a[href="#resources"].active { background: var(--c4); border-color: var(--c4); }
         .grade-nav a[href="#contact"]:hover, .grade-nav a[href="#contact"].active { background: #9b59b6; border-color: #9b59b6; }
 
@@ -195,6 +196,9 @@
         #methods .section-header { border-color: var(--c3); }
         #methods .section-num { background: var(--c3); }
         #methods .section-title { color: var(--c3); }
+        #tools .section-header { border-color: var(--c5); }
+        #tools .section-num { background: var(--c5); }
+        #tools .section-title { color: var(--c5); }
         #resources .section-header { border-color: var(--c4); }
         #resources .section-num { background: var(--c4); }
         #resources .section-title { color: #5a9; }
@@ -239,6 +243,11 @@
         .method-card:nth-child(2) h3 { color: var(--c2); }
         .method-card:nth-child(3) h3 { color: var(--c3); }
         .method-card:nth-child(4) h3 { color: var(--c4); }
+
+        /* ===== 小工具卡片颜色 ===== */
+        .tool-card:nth-child(1) h3 { color: var(--c5); }
+        .tool-card:nth-child(2) h3 { color: var(--c1); }
+        .tool-card:nth-child(3) h3 { color: var(--c2); }
 
         /* ===== 资源卡片颜色 ===== */
         .resource-card:nth-child(1) h3 { color: var(--c3); }
@@ -418,6 +427,7 @@ function showToast() {
             <a href="#home">首页</a>
             <a href="#about">关于我们</a>
             <a href="#methods">学习方法</a>
+            <a href="#tools">学习小工具</a>
             <a href="#resources">学习资源</a>
             <a href="#contact">联系我们</a>
         </div>
@@ -480,10 +490,28 @@ function showToast() {
     </div>
 </section>
 
+<!-- 学习小工具 -->
+<section id="tools" class="container">
+    <div class="section-header">
+        <div class="section-num">3</div>
+        <div>
+            <div class="section-title">学习小工具</div>
+            <div class="section-sub">实用学习助手</div>
+        </div>
+    </div>
+    <div class="card-grid">
+        <a href="basic_english_850.html" class="card tool-card" style="text-decoration:none; color:inherit;">
+            <h3>📝 背单词 - Basic English 850</h3>
+            <p>使用 C.K. Ogden 设计的 850 个核心词汇进行背单词练习，支持发音、音标和中文翻译。</p>
+            <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#667eea;">开始学习 →</div>
+        </a>
+    </div>
+</section>
+
 <!-- 学习资源 -->
 <section id="resources" class="container">
     <div class="section-header">
-        <div class="section-num">3</div>
+        <div class="section-num">4</div>
         <div>
             <div class="section-title">学习知识库</div>
             <div class="section-sub">知识图谱与资料</div>
@@ -511,7 +539,7 @@ function showToast() {
 <!-- 家长指南 -->
 <section class="container">
     <div class="section-header">
-        <div class="section-num">4</div>
+        <div class="section-num">5</div>
         <div>
             <div class="section-title">家长指南</div>
             <div class="section-sub">实用建议</div>
@@ -539,7 +567,7 @@ function showToast() {
 <!-- 联系我们 -->
 <section id="contact" class="container">
     <div class="section-header">
-        <div class="section-num">5</div>
+        <div class="section-num">6</div>
         <div>
             <div class="section-title">联系我们</div>
             <div class="section-sub">欢迎沟通</div>
