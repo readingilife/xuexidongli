@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>北师版小学数学·计算与应用知识图谱</title>
+    <style>
+        :root {
+            --c1: #FF6B6B; --c1-light: #FFF0F0;
+            --c2: #4ECDC4; --c2-light: #E8FAF8;
+            --c3: #45B7D1; --c3-light: #E8F7FB;
+            --c4: #96CEB4; --c4-light: #F0F8F4;
+            --c5: #FFEAA7; --c5-light: #FFFBF0;
+            --c6: #DDA0DD; --c6-light: #FAF0FA;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --border: #e9ecef;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== 顶部导航 ===== */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        .top-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .logo {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            white-space: nowrap;
+        }
+        .grade-nav {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex: 1;
+            justify-content: flex-end;
+        }
+        .grade-nav::-webkit-scrollbar { display: none; }
+        .grade-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 32px;
+            padding: 0 10px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--text-light);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .grade-nav a:hover, .grade-nav a.active {
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .grade-nav a[href="#g1"]:hover, .grade-nav a[href="#g1"].active { background: var(--c1); border-color: var(--c1); }
+        .grade-nav a[href="#g2"]:hover, .grade-nav a[href="#g2"].active { background: var(--c2); border-color: var(--c2); }
+        .grade-nav a[href="#g3"]:hover, .grade-nav a[href="#g3"].active { background: var(--c3); border-color: var(--c3); }
+        .grade-nav a[href="#g4"]:hover, .grade-nav a[href="#g4"].active { background: var(--c4); border-color: var(--c4); }
+        .grade-nav a[href="#g5"]:hover, .grade-nav a[href="#g5"].active { background: #9b59b6; border-color: #9b59b6; }
+        .grade-nav a[href="#g6"]:hover, .grade-nav a[href="#g6"].active { background: var(--c6); border-color: var(--c6); }
+
+        /* ===== 封面头图 ===== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 48px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+        .hero p {
+            font-size: 15px;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .hero-tags {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .hero-tag {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ===== 年级区块 ===== */
+        .grade-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 16px;
+        }
+        .grade-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid;
+        }
+        .grade-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .grade-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .grade-sub {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        /* 颜色主题 */
+        #g1 .grade-header { border-color: var(--c1); }
+        #g1 .grade-num { background: var(--c1); }
+        #g1 .grade-title { color: var(--c1); }
+        #g2 .grade-header { border-color: var(--c2); }
+        #g2 .grade-num { background: var(--c2); }
+        #g2 .grade-title { color: var(--c2); }
+        #g3 .grade-header { border-color: var(--c3); }
+        #g3 .grade-num { background: var(--c3); }
+        #g3 .grade-title { color: var(--c3); }
+        #g4 .grade-header { border-color: var(--c4); }
+        #g4 .grade-num { background: var(--c4); }
+        #g4 .grade-title { color: #5a9; }
+        #g5 .grade-header { border-color: #9b59b6; }
+        #g5 .grade-num { background: #9b59b6; }
+        #g5 .grade-title { color: #9b59b6; }
+        #g6 .grade-header { border-color: var(--c6); }
+        #g6 .grade-num { background: var(--c6); }
+        #g6 .grade-title { color: var(--c6); }
+
+        /* ===== 学期卡片 ===== */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .semester-card {
+            background: var(--card);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .semester-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .semester-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border);
+        }
+        .semester-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+        .difficulty-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .difficulty-high {
+            background: #ffe0e0;
+            color: #c0392b;
+        }
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        /* 学期颜色 */
+        .s1 .semester-header { background: linear-gradient(90deg, var(--c1-light), transparent); border-color: var(--c1); }
+        .s1 .semester-name { color: var(--c1); }
+        .s2 .semester-header { background: linear-gradient(90deg, var(--c2-light), transparent); border-color: var(--c2); }
+        .s2 .semester-name { color: var(--c2); }
+        .s3 .semester-header { background: linear-gradient(90deg, var(--c3-light), transparent); border-color: var(--c3); }
+        .s3 .semester-name { color: var(--c3); }
+        .s4 .semester-header { background: linear-gradient(90deg, var(--c4-light), transparent); border-color: var(--c4); }
+        .s4 .semester-name { color: #5a9; }
+        .s5 .semester-header { background: linear-gradient(90deg, #f3e5f5, transparent); border-color: #9b59b6; }
+        .s5 .semester-name { color: #9b59b6; }
+        .s6 .semester-header { background: linear-gradient(90deg, var(--c6-light), transparent); border-color: var(--c6); }
+        .s6 .semester-name { color: var(--c6); }
+
+        .semester-body {
+            padding: 16px 20px;
+        }
+
+        /* ===== 知识点模块 ===== */
+        .module {
+            margin-bottom: 16px;
+        }
+        .module:last-child { margin-bottom: 0; }
+        .module-title {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .module-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* 模块颜色 */
+        .m-calc .module-title { background: #e3f2fd; color: #1565c0; }
+        .m-calc .module-title::before { background: #1565c0; }
+        .m-app .module-title { background: #e8f5e9; color: #2e7d32; }
+        .m-app .module-title::before { background: #2e7d32; }
+        .m-extra .module-title { background: #fff3e0; color: #e65100; }
+        .m-extra .module-title::before { background: #e65100; }
+        .m-concept .module-title { background: #f3e5f5; color: #6a1b9a; }
+        .m-concept .module-title::before { background: #6a1b9a; }
+
+        .point-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .point-list li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: 13.5px;
+            color: var(--text);
+            line-height: 1.7;
+            border-bottom: 1px dashed var(--border);
+        }
+        .point-list li:last-child { border-bottom: none; }
+        .point-list li::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 13px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-light);
+        }
+        .point-list li.key::before {
+            background: #e74c3c;
+            width: 7px;
+            height: 7px;
+            left: 3px;
+            box-shadow: 0 0 0 3px rgba(231,76,60,0.15);
+        }
+        .point-list li.key {
+            font-weight: 600;
+            color: #c0392b;
+        }
+        .point-list li.key .tag {
+            display: inline-block;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: #e74c3c;
+            color: white;
+            margin-left: 6px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+
+        /* ===== 重难点速览条 ===== */
+        .quick-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            border-radius: 10px;
+            border: 1px dashed var(--border);
+        }
+        .quick-item {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-weight: 500;
+        }
+        .quick-item.hot {
+            background: #fff5f5;
+            border-color: #feb2b2;
+            color: #c53030;
+        }
+
+        /* ===== 附录表格 ===== */
+        .appendix {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px 40px;
+        }
+        .appendix-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+        .speed-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            font-size: 13px;
+        }
+        .speed-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .speed-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .speed-table tr:last-child td { border-bottom: none; }
+        .speed-table tr:nth-child(even) { background: #f8f9fa; }
+
+        /* ===== 分享条 ===== */
+        .share-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 99;
+        }
+        .share-btn {
+            padding: 10px 24px;
+            border-radius: 24px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .share-btn.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+        }
+        .share-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+        }
+        .share-btn.secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 32px 16px; }
+            .hero h1 { font-size: 22px; }
+            .semester-grid { grid-template-columns: 1fr; }
+            .grade-header { margin-bottom: 16px; }
+            .grade-num { width: 40px; height: 40px; font-size: 18px; }
+            .grade-title { font-size: 18px; }
+            .grade-section { padding: 24px 12px; }
+            .top-bar-inner { padding: 0 12px; }
+            .grade-nav a { min-width: 32px; height: 28px; font-size: 12px; padding: 0 8px; }
+            .share-btn { padding: 8px 16px; font-size: 13px; }
+            body { padding-bottom: 60px; }
+        }
+        @media (min-width: 769px) {
+            body { padding-bottom: 0; }
+            .share-bar { display: none; }
+        }
+
+        /* 打印优化 */
+        @media print {
+            .top-bar, .share-bar, .hero { display: none; }
+            .semester-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+            .grade-section { padding: 20px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<nav class="top-bar">
+    <div class="top-bar-inner">
+        <div class="logo">📚 小学数学图谱</div>
+        <div class="grade-nav">
+            <a href="#g1" onclick="setActive(this)">一年级</a>
+            <a href="#g2" onclick="setActive(this)">二年级</a>
+            <a href="#g3" onclick="setActive(this)">三年级</a>
+            <a href="#g4" onclick="setActive(this)">四年级</a>
+            <a href="#g5" onclick="setActive(this)">五年级</a>
+            <a href="#g6" onclick="setActive(this)">六年级</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 封面 -->
+<header class="hero">
+    <h1>北师版小学数学<br>计算与应用知识图谱</h1>
+    <p>1-6年级课内重点 + 应用题型 + 课外拓展，一图看清每学期重难点</p>
+    <div class="hero-tags">
+        <span class="hero-tag">北师大版 2024</span>
+        <span class="hero-tag">计算 + 应用</span>
+        <span class="hero-tag">家长必备</span>
+    </div>
+</header>
+
+<!-- 一年级 -->
+<section class="grade-section" id="g1">
+    <div class="grade-header">
+        <div class="grade-num">1</div>
+        <div>
+            <div class="grade-title">一年级</div>
+            <div class="grade-sub">数感启蒙 · 加减法基础 · 应用题入门</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 一上 -->
+        <div class="semester-card s1">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-medium">基础建立期</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">10以内加减法</span>
+                    <span class="quick-item">凑十法</span>
+                    <span class="quick-item">一图四式</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>认识10以内自然数，理解个位、位值思想</li>
+                        <li class="key">10以内数的拆分与组合（如5=2+3）<span class="tag">核心</span></li>
+                        <li class="key">认识补数/好朋友数（3和7、2和8…）<span class="tag">必背</span></li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">10以内加减法口算<span class="tag">重点</span></li>
+                        <li>连加、连减与加减混合</li>
+                        <li>速度要求：5分钟30道，最多错1个</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">一图两式/四式（加减互逆）<span class="tag">难点</span></li>
+                        <li>求总数、求剩余、比多少</li>
+                        <li>0的加减法情境题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>多个数连加找补数巧算</li>
+                        <li>带符号搬家</li>
+                        <li>认识奇数偶数</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 一下 -->
+        <div class="semester-card s2">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">关键突破期</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">20以内进退位</span>
+                    <span class="quick-item hot">100以内竖式</span>
+                    <span class="quick-item">多余条件</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>认识20以内、100以内数</li>
+                        <li>理解数位（个十百）、位值、十进制</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">20以内进位加法（凑十法）<span class="tag">重点</span></li>
+                        <li class="key">20以内退位减法（破十法/平十法）<span class="tag">难点</span></li>
+                        <li class="key">100以内进退位加减法竖式<span class="tag">重点</span></li>
+                        <li>速度要求：5分钟30道，最多错1个</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li>20以内、100以内加减法应用题</li>
+                        <li class="key">多余条件问题<span class="tag">易错</span></li>
+                        <li>开放性问题（提数学问题）</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>加减法拆补法（29+29+29=90-3）</li>
+                        <li>带符号搬家、加减法巧算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 二年级 -->
+<section class="grade-section" id="g2">
+    <div class="grade-header">
+        <div class="grade-num">2</div>
+        <div>
+            <div class="grade-title">二年级</div>
+            <div class="grade-sub">乘除法入门 · 表内口诀 · 有余数除法</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 二上 -->
+        <div class="semester-card s3">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-high">乘除法奠基</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">乘法口诀</span>
+                    <span class="quick-item hot">平均分/包含除</span>
+                    <span class="quick-item">倍数问题</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>万以内数的认识、数位与位值</li>
+                        <li>用计数器表示万以内的数</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li>100以内连加、连减、加减混合</li>
+                        <li class="key">乘法初步认识（相同加数求和）<span class="tag">新知</span></li>
+                        <li class="key">2~9乘法口诀（熟记！）<span class="tag">核心</span></li>
+                        <li class="key">除法初步认识（平均分）<span class="tag">新知</span></li>
+                        <li>用乘法口诀求商</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li>乘法的应用（求几个相同加数的和）</li>
+                        <li class="key">除法的应用（平均分/包含除/倍数）<span class="tag">难点</span></li>
+                        <li>乘除法综合购物问题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>交换律、结合律初步感知</li>
+                        <li>基准数算法、等差数列求和</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 二下 -->
+        <div class="semester-card s4">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">重难点集中</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">有余数除法</span>
+                    <span class="quick-item hot">进一/去尾法</span>
+                    <span class="quick-item">周期问题</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>万以内数巩固，认识算盘</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">有余数除法（余数&lt;除数）<span class="tag">重点</span></li>
+                        <li>万以内数加减法竖式</li>
+                        <li>两步混合运算（认识小括号）</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">有余数除法应用（进一法/去尾法）<span class="tag">重难点</span></li>
+                        <li class="key">周期问题（气球/图形排列）<span class="tag">难点</span></li>
+                        <li>万以内加减法应用题、估算</li>
+                        <li>混合运算应用题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>有余数除法周期问题拓展</li>
+                        <li>等差数列求和公式应用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 三年级 -->
+<section class="grade-section" id="g3">
+    <div class="grade-header">
+        <div class="grade-num">3</div>
+        <div>
+            <div class="grade-title">三年级</div>
+            <div class="grade-sub">多位数乘除 · 分数小数初步 · 混合运算</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 三上 -->
+        <div class="semester-card s5">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-high">运算升级</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">多位数乘除一位数</span>
+                    <span class="quick-item">混合运算</span>
+                    <span class="quick-item">里程表</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>分数初步认识（几分之一、几分之几）</li>
+                        <li>同分母分数比大小</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">两步混合运算（先乘除后加减）<span class="tag">重点</span></li>
+                        <li>三位数连加、连减、加减混合</li>
+                        <li class="key">两位数乘一位数笔算<span class="tag">重点</span></li>
+                        <li class="key">两、三位数除以一位数竖式<span class="tag">难点</span></li>
+                        <li>商中间或末尾有0的除法</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">混合运算应用题（小熊购物情境）<span class="tag">重点</span></li>
+                        <li class="key">里程表问题（电表读数）<span class="tag">难点</span></li>
+                        <li>乘除法应用题、连乘连除问题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>乘法分配律及应用</li>
+                        <li>等差数列求项数</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 三下 -->
+        <div class="semester-card s6">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">数域扩展</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">两位数乘两位数</span>
+                    <span class="quick-item hot">小数加减</span>
+                    <span class="quick-item">分数加减</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li class="key">小数初步认识（元角分背景）<span class="tag">新知</span></li>
+                        <li>分数再认识（整体"1"）</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">两位数乘两位数笔算<span class="tag">重点</span></li>
+                        <li>三位数除以一位数（商是两位数）</li>
+                        <li class="key">一位小数加减法（小数点对齐）<span class="tag">重点</span></li>
+                        <li>同分母分数加减法</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li>乘除法应用题（连除/乘除混合）</li>
+                        <li class="key">小数加减法应用题（元角分）<span class="tag">重点</span></li>
+                        <li>分数加减法应用题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>乘法分配律灵活运用</li>
+                        <li>重叠数计算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 四年级 -->
+<section class="grade-section" id="g4">
+    <div class="grade-header">
+        <div class="grade-num">4</div>
+        <div>
+            <div class="grade-title">四年级</div>
+            <div class="grade-sub">大数认识 · 运算律 · 小数乘法 · 简易方程</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 四上 -->
+        <div class="semester-card s1">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-high">运算律关键期</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">三位数乘两位数</span>
+                    <span class="quick-item hot">除数是两位数</span>
+                    <span class="quick-item">负数</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li class="key">亿以内数的认识及比大小<span class="tag">重点</span></li>
+                        <li class="key">认识负数（温度、海拔）<span class="tag">新知</span></li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">三位数乘两位数笔算<span class="tag">重点</span></li>
+                        <li class="key">除数是两位数的除法（试商）<span class="tag">难点</span></li>
+                        <li class="key">运算律及简便计算<span class="tag">核心</span></li>
+                        <li>认识及运用计算器</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">路程、速度、时间关系<span class="tag">重点</span></li>
+                        <li>运算律简便计算应用题</li>
+                        <li>负数应用（温差、海拔差）</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>特殊数巧算（头同尾合十等）</li>
+                        <li>等差数列求第n项</li>
+                        <li>位值原理与进制</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 四下 -->
+        <div class="semester-card s2">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">方程启蒙</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">小数乘法</span>
+                    <span class="quick-item hot">解方程</span>
+                    <span class="quick-item">小数应用</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>小数再认识及比大小</li>
+                        <li>小数点移动引起大小变化</li>
+                        <li>小数与分数的关系</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">小数加减法（小数点对齐）<span class="tag">重点</span></li>
+                        <li class="key">小数乘法（先整数后点小数点）<span class="tag">难点</span></li>
+                        <li class="key">等式性质与解简单方程<span class="tag">新知</span></li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li>小数加减法应用题（买菜、比身高）</li>
+                        <li class="key">小数乘法应用题（面积、购物）<span class="tag">重点</span></li>
+                        <li class="key">用方程解决问题<span class="tag">新知</span></li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>小数巧算（分配律、结合律）</li>
+                        <li>等差数列求第n项与求和</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 五年级 -->
+<section class="grade-section" id="g5">
+    <div class="grade-header">
+        <div class="grade-num">5</div>
+        <div>
+            <div class="grade-title">五年级</div>
+            <div class="grade-sub">因数倍数 · 分数系统 · 小数除法 · 分数乘除</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 五上 -->
+        <div class="semester-card s3">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-high">数论入门</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">因数倍数质数</span>
+                    <span class="quick-item hot">小数除法</span>
+                    <span class="quick-item">分数加减</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li class="key">倍数、因数、质数、合数<span class="tag">新知</span></li>
+                        <li>2、3、5的倍数特征</li>
+                        <li>分数再认识（真分数、假分数、带分数）</li>
+                        <li>约分与通分</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">小数除法（除数是小数→转化）<span class="tag">难点</span></li>
+                        <li>循环小数、商的近似数</li>
+                        <li class="key">分数加减法（异分母先通分）<span class="tag">重点</span></li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li>倍数因数应用题（分组、公倍数）</li>
+                        <li class="key">小数除法应用（进一/去尾法）<span class="tag">易错</span></li>
+                        <li>分数加减法应用题</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>简易方程和方程组</li>
+                        <li>分数小数互化、循环小数计算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 五下 -->
+        <div class="semester-card s4">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">分数运算</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">分数乘除法</span>
+                    <span class="quick-item">单位"1"</span>
+                    <span class="quick-item">百分数</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li class="key">分数乘法意义（求一个数的几分之几）<span class="tag">新知</span></li>
+                        <li>倒数概念</li>
+                        <li>百分数的认识</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">分数乘法（分子乘分子，分母乘分母）<span class="tag">重点</span></li>
+                        <li class="key">分数除法（除以一个数=乘倒数）<span class="tag">难点</span></li>
+                        <li>分数混合运算</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">分数乘法应用题（找单位"1"）<span class="tag">重难点</span></li>
+                        <li class="key">分数除法应用题（已知几分之几求原数）<span class="tag">重难点</span></li>
+                        <li>百分率应用题（发芽率、合格率）</li>
+                        <li>相遇问题（方程法）</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>不定方程、分数单位拆分</li>
+                        <li>公式类计算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 六年级 -->
+<section class="grade-section" id="g6">
+    <div class="grade-header">
+        <div class="grade-num">6</div>
+        <div>
+            <div class="grade-title">六年级</div>
+            <div class="grade-sub">分数混合 · 百分数系统 · 比例 · 圆柱圆锥</div>
+        </div>
+    </div>
+    <div class="semester-grid">
+        <!-- 六上 -->
+        <div class="semester-card s5">
+            <div class="semester-header">
+                <span class="semester-name">上学期</span>
+                <span class="difficulty-badge difficulty-high">百分数核心</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">百分数应用</span>
+                    <span class="quick-item">按比分配</span>
+                    <span class="quick-item">圆</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>百分数的意义及与分数小数互化</li>
+                        <li>比的认识与化简</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li class="key">分数混合运算（含中括号）<span class="tag">重点</span></li>
+                        <li>比的基本性质与化简比</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">百分数应用题（求百分率、折扣、成数）<span class="tag">重难点</span></li>
+                        <li class="key">已知比一个数多（少）百分之几求原数<span class="tag">难点</span></li>
+                        <li class="key">按比分配问题<span class="tag">重点</span></li>
+                        <li>圆的周长与面积计算</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>分数裂项、繁分数化简</li>
+                        <li>斐波那契数列应用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 六下 -->
+        <div class="semester-card s6">
+            <div class="semester-header">
+                <span class="semester-name">下学期</span>
+                <span class="difficulty-badge difficulty-high">小升初总复习</span>
+            </div>
+            <div class="semester-body">
+                <div class="quick-bar">
+                    <span class="quick-item hot">比例应用</span>
+                    <span class="quick-item">圆柱圆锥</span>
+                    <span class="quick-item">纳税利息</span>
+                </div>
+                <div class="module m-concept">
+                    <div class="module-title">数的认识</div>
+                    <ul class="point-list">
+                        <li>百分数应用（折扣、成数、税率、利率）</li>
+                    </ul>
+                </div>
+                <div class="module m-calc">
+                    <div class="module-title">计算</div>
+                    <ul class="point-list">
+                        <li>分数混合运算巩固</li>
+                        <li class="key">比例与解比例<span class="tag">重点</span></li>
+                        <li>正比例与反比例判断</li>
+                    </ul>
+                </div>
+                <div class="module m-app">
+                    <div class="module-title">应用题</div>
+                    <ul class="point-list">
+                        <li class="key">比例尺问题<span class="tag">重点</span></li>
+                        <li class="key">用比例解决问题（正/反比例）<span class="tag">难点</span></li>
+                        <li class="key">圆柱与圆锥计算（表面积、体积）<span class="tag">重点</span></li>
+                        <li>折扣、纳税、利息问题</li>
+                        <li>鸡兔同笼（假设法/方程法）</li>
+                    </ul>
+                </div>
+                <div class="module m-extra">
+                    <div class="module-title">课外拓展</div>
+                    <ul class="point-list">
+                        <li>复杂方程组、定义新运算</li>
+                        <li>整数裂项</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 附录 -->
+<section class="appendix">
+    <h2 class="appendix-title">各年级计算速度要求汇总</h2>
+    <table class="speed-table">
+        <thead>
+            <tr>
+                <th>年级</th>
+                <th>计算内容</th>
+                <th>速度要求</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>一上</td><td>10以内加减法</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>一下</td><td>20以内、100以内加减法</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>二上</td><td>表内乘除法</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>二下</td><td>有余数除法、万以内加减法</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>三上</td><td>两三位数乘除一位数、混合运算</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>三下</td><td>两位数乘两位数、小数分数加减</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>四上</td><td>三位数乘两位数、除数是两位数的除法</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>四下</td><td>小数加减乘、简单方程</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>五上</td><td>小数除法、分数加减</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>五下</td><td>分数乘除法、分数混合运算</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>六上</td><td>分数混合运算、百分数计算</td><td>5分钟30道，最多错1个</td></tr>
+            <tr><td>六下</td><td>比例、百分数应用计算</td><td>5分钟30道，最多错1个</td></tr>
+        </tbody>
+    </table>
+    <div style="margin-top:16px; padding:16px; background:#f8f9fa; border-radius:10px; font-size:13px; color:var(--text-light); line-height:1.8;">
+        <strong style="color:var(--text);">说明：</strong><br>
+        1. 本内容严格按北师大版（2024）小学数学教材编排，计算与应用整合呈现。<br>
+        2. <strong style="color:#c0392b;">红色标记</strong>为每学期重难点，家长可重点盯防。<br>
+        3. 应用题教学应注重理解题意、分析数量关系，避免机械套公式。<br>
+        4. 口算训练坚持"短时高效"，不建议长时间大量刷题。
+    </div>
+</section>
+
+<!-- 底部分享 -->
+<div class="share-bar">
+    <button class="share-btn secondary" onclick="window.print()">打印/保存PDF</button>
+    <button class="share-btn primary" onclick="copyLink()">复制链接分享</button>
+</div>
+
+<script>
+    // 导航高亮
+    function setActive(el) {
+        document.querySelectorAll('.grade-nav a').forEach(a => a.classList.remove('active'));
+        el.classList.add('active');
+    }
+    // 滚动监听
+    const sections = document.querySelectorAll('.grade-section');
+    const navLinks = document.querySelectorAll('.grade-nav a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 100) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+        });
+    });
+    // 复制链接
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('链接已复制，快去分享给家长群吧！');
+        });
+    }
+</script>
+
+</body>
+</html>
