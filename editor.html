@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习力报告编辑器</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .panel h2 {
+            font-size: 18px;
+            color: #2d3436;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #45B7D1;
+            box-shadow: 0 0 0 3px rgba(69, 183, 209, 0.1);
+        }
+        .list-editor {
+            border: 1px dashed #ced4da;
+            border-radius: 8px;
+            padding: 12px;
+            background: #f8f9fa;
+        }
+        .list-item {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .list-item input {
+            flex: 1;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4ECDC4, #45B7D1);
+            color: white;
+        }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+        .btn-secondary:hover { background: #dee2e6; }
+        .btn-danger {
+            background: #FF6B6B;
+            color: white;
+        }
+        .btn-danger:hover { opacity: 0.9; }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .btn-group .btn { flex: 1; }
+        .preview {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .preview iframe {
+            width: 100%;
+            height: calc(100vh - 200px);
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .section-editor {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .section-editor h3 {
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 12px;
+        }
+        .student-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .student-selector select {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .top-bar {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar h1 {
+            font-size: 20px;
+            background: linear-gradient(135deg, #4ECDC4, #45B7D1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>📝 学习力报告编辑器</h1>
+        <a href="index.html" style="text-decoration: none; color: #45B7D1; font-weight: 600;">← 返回首页</a>
+    </div>
+
+    <div class="container">
+        <div class="panel">
+            <div class="student-selector">
+                <label>选择学生：</label>
+                <select id="studentSelect">
+                    <option value="liupinyan">刘品延</option>
+                </select>
+                <button class="btn btn-secondary" onclick="newStudent()">+ 新增学生</button>
+            </div>
+
+            <div id="editorForm">
+                <div class="form-group">
+                    <label>学生姓名</label>
+                    <input type="text" id="studentName" placeholder="请输入学生姓名">
+                </div>
+                <div class="form-group">
+                    <label>学校</label>
+                    <input type="text" id="school" placeholder="请输入学校名称">
+                </div>
+                <div class="form-group">
+                    <label>年级</label>
+                    <input type="text" id="grade" placeholder="请输入年级">
+                </div>
+                <div class="form-group">
+                    <label>评估日期</label>
+                    <input type="text" id="date" placeholder="请输入评估日期">
+                </div>
+
+                <div class="section-editor">
+                    <h3>📌 核心优势</h3>
+                    <div class="list-editor" id="advantagesList"></div>
+                    <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addItem('advantages')">+ 添加优势</button>
+                </div>
+
+                <div class="section-editor">
+                    <h3>⚡ 待提升问题</h3>
+                    <div class="list-editor" id="problemsList"></div>
+                    <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addItem('problems')">+ 添加问题</button>
+                </div>
+
+                <div class="section-editor">
+                    <h3>🚧 关键卡点</h3>
+                    <div class="list-editor" id="blockersList"></div>
+                    <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addItem('blockers')">+ 添加卡点</button>
+                </div>
+
+                <div class="section-editor">
+                    <h3>🌱 进步与成长方向</h3>
+                    <div class="list-editor" id="growthList"></div>
+                    <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addItem('growth')">+ 添加方向</button>
+                </div>
+
+                <div class="form-group">
+                    <label>完整报告内容（Markdown）</label>
+                    <textarea id="markdownContent" placeholder="在此粘贴完整的 Markdown 报告内容..." style="min-height: 300px;"></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="loadData()">📥 加载数据</button>
+                    <button class="btn btn-primary" onclick="generateHTML()">✨ 生成预览</button>
+                    <button class="btn btn-primary" onclick="downloadHTML()">💾 下载 HTML</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel preview">
+            <h2>👀 实时预览</h2>
+            <iframe id="previewFrame"></iframe>
+        </div>
+    </div>
+
+    <script>
+        let studentsData = {
+            liupinyan: {
+                name: '刘品延',
+                school: '北京师范大学亚太实验学校',
+                grade: '7年级',
+                date: '2026年6月8日',
+                advantages: [
+                    '对自己要求很高，目标非常明确（北京四中、外科医生）',
+                    '学习动力很强，真心喜欢学习',
+                    '自我认知清晰，很了解自己',
+                    '逻辑思维好，喜欢钻研难题',
+                    '在科技竞赛中表现出色，抗压能力强',
+                    '语文理解能力强，文言文和现代文阅读无障碍',
+                    '英语成绩稳定，基础牢固',
+                    '道法成绩优秀且稳定',
+                    '计划与监控能力突出',
+                    '善于规划和自我检查，有知识梳理、错题本习惯',
+                    '时间管理和自我约束力强'
+                ],
+                problems: [
+                    '语文答题方法欠缺，考点敏感度不足',
+                    '语文审题不清，答题抓不住采分点',
+                    '数学考试焦虑严重，简单题因为紧张做错',
+                    '英语听力易受干扰走神，作文和翻译有提升空间',
+                    '道法答题不善于精准摘取和概括材料重点',
+                    '组织策略略低于平均水平',
+                    '人际沟通方式需要优化，与同学相处有摩擦',
+                    '精力管理不足，容易感到疲惫'
+                ],
+                blockers: [
+                    '高目标和高自我要求在遇到挫折时转化为巨大压力和焦虑',
+                    '对考试成绩过度紧张，影响正常发挥',
+                    '考试焦虑制约各科发挥，实际成绩与能力不匹配',
+                    '将考试视为"证明自己"而非"成长过程"（固定型思维）',
+                    '调节策略薄弱，考试偏离预期时易陷入被动',
+                    '"对内压抑，对外发泄"的情绪模式',
+                    '考试场景下自我效能感不足'
+                ],
+                growth: [
+                    '培养成长型思维，重新定义考试和错误',
+                    '掌握呼吸放松等生理调节技巧',
+                    '针对"发卷前"和"结束前15分钟"进行脱敏训练',
+                    '将竞赛中的自信迁移到考场上',
+                    '优化答题策略，提升考点敏感度',
+                    '加强知识组织策略，建立知识体系',
+                    '学习健康的情绪表达与调节方式',
+                    '优化沟通方式，减少人际摩擦',
+                    '引入精力恢复策略，变耗竭为可持续',
+                    '在微小成功中积累信心'
+                ],
+                markdown: ''
+            }
+        };
+
+        let currentStudent = 'liupinyan';
+
+        function init() {
+            loadStudentData();
+            renderLists();
+        }
+
+        function loadStudentData() {
+            const data = studentsData[currentStudent];
+            document.getElementById('studentName').value = data.name;
+            document.getElementById('school').value = data.school;
+            document.getElementById('grade').value = data.grade;
+            document.getElementById('date').value = data.date;
+            document.getElementById('markdownContent').value = data.markdown || '';
+        }
+
+        function renderLists() {
+            const data = studentsData[currentStudent];
+            renderList('advantages', data.advantages);
+            renderList('problems', data.problems);
+            renderList('blockers', data.blockers);
+            renderList('growth', data.growth);
+        }
+
+        function renderList(type, items) {
+            const container = document.getElementById(type + 'List');
+            container.innerHTML = items.map((item, index) => `
+                <div class="list-item">
+                    <input type="text" value="${item.replace(/"/g, '&quot;')}" onchange="updateItem('${type}', ${index}, this.value)">
+                    <button class="btn btn-danger" onclick="removeItem('${type}', ${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function addItem(type) {
+            studentsData[currentStudent][type].push('');
+            renderList(type, studentsData[currentStudent][type]);
+        }
+
+        function updateItem(type, index, value) {
+            studentsData[currentStudent][type][index] = value;
+        }
+
+        function removeItem(type, index) {
+            studentsData[currentStudent][type].splice(index, 1);
+            renderList(type, studentsData[currentStudent][type]);
+        }
+
+        function saveCurrentData() {
+            studentsData[currentStudent].name = document.getElementById('studentName').value;
+            studentsData[currentStudent].school = document.getElementById('school').value;
+            studentsData[currentStudent].grade = document.getElementById('grade').value;
+            studentsData[currentStudent].date = document.getElementById('date').value;
+            studentsData[currentStudent].markdown = document.getElementById('markdownContent').value;
+        }
+
+        function generateHTML() {
+            saveCurrentData();
+            const data = studentsData[currentStudent];
+            const html = generateReportHTML(data);
+            const iframe = document.getElementById('previewFrame');
+            iframe.srcdoc = html;
+        }
+
+        function downloadHTML() {
+            saveCurrentData();
+            const data = studentsData[currentStudent];
+            const html = generateReportHTML(data);
+            const filename = `yatai-${data.name.toLowerCase().replace(/\s/g, '')}-${data.grade.toLowerCase().replace(/\s/g, '')}.html`;
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function generateReportHTML(data) {
+            return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习力评估与诊断报告 - ${data.name}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 48px 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .student-info {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+            font-size: 15px;
+        }
+        .content {
+            padding: 48px 40px;
+        }
+        .section {
+            margin-bottom: 48px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e8ecff;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title.advantages { color: #10b981; }
+        .card-title.problems { color: #f59e0b; }
+        .card-title.blockers { color: #ef4444; }
+        .card-title.growth { color: #3b82f6; }
+        .card-list { list-style: none; }
+        .card-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+        .card-list li::before {
+            content: '•';
+            position: absolute;
+            left: 8px;
+            font-weight: bold;
+        }
+        .card-list.advantages li::before { color: #10b981; }
+        .card-list.problems li::before { color: #f59e0b; }
+        .card-list.blockers li::before { color: #ef4444; }
+        .card-list.growth li::before { color: #3b82f6; }
+        @media (max-width: 768px) {
+            .header { padding: 32px 24px; }
+            .header h1 { font-size: 24px; }
+            .student-info { flex-direction: column; gap: 8px; }
+            .content { padding: 32px 24px; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>学习力评估与诊断报告</h1>
+            <p class="subtitle">${data.date}</p>
+            <div class="student-info">
+                <span>👤 姓名：${data.name}</span>
+                <span>🏫 学校：${data.school}</span>
+                <span>📚 年级：${data.grade}</span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">学生画像</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title advantages">✓ 核心优势</h3>
+                        <ul class="card-list advantages">
+                            ${data.advantages.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title problems">⚡ 待提升问题</h3>
+                        <ul class="card-list problems">
+                            ${data.problems.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title blockers">🚧 关键卡点</h3>
+                        <ul class="card-list blockers">
+                            ${data.blockers.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title growth">🌱 进步与成长方向</h3>
+                        <ul class="card-list growth">
+                            ${data.growth.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+        }
+
+        function newStudent() {
+            const name = prompt('请输入新学生姓名：');
+            if (name) {
+                const id = name.toLowerCase().replace(/\s/g, '');
+                studentsData[id] = {
+                    name: name,
+                    school: '',
+                    grade: '',
+                    date: new Date().toLocaleDateString('zh-CN'),
+                    advantages: [],
+                    problems: [],
+                    blockers: [],
+                    growth: [],
+                    markdown: ''
+                };
+                const select = document.getElementById('studentSelect');
+                const option = document.createElement('option');
+                option.value = id;
+                option.textContent = name;
+                select.appendChild(option);
+                select.value = id;
+                currentStudent = id;
+                loadStudentData();
+                renderLists();
+            }
+        }
+
+        function loadData() {
+            currentStudent = document.getElementById('studentSelect').value;
+            loadStudentData();
+            renderLists();
+        }
+
+        // 尝试从 localStorage 加载保存的数据
+        const savedData = localStorage.getItem('studentsData');
+        if (savedData) {
+            studentsData = JSON.parse(savedData);
+            // 更新下拉选择
+            const select = document.getElementById('studentSelect');
+            select.innerHTML = '';
+            Object.keys(studentsData).forEach(id => {
+                const option = document.createElement('option');
+                option.value = id;
+                option.textContent = studentsData[id].name;
+                select.appendChild(option);
+            });
+            select.value = currentStudent;
+        }
+
+        // 自动保存到 localStorage
+        setInterval(() => {
+            saveCurrentData();
+            localStorage.setItem('studentsData', JSON.stringify(studentsData));
+        }, 5000);
+
+        init();
+    </script>
+</body>
+</html>
