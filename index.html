@@ -2,9 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学习力</title>
-    <link rel="icon" type="image/svg+xml" href="icon/学习.svg">
     <style>
         :root {
             --c1: #FF6B6B; --c1-light: #FFF0F0;
@@ -33,11 +32,11 @@
 
         /* ===== 顶部导航 ===== */
         .top-bar {
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
             border-bottom: 1px solid var(--border);
             padding: 12px 0;
         }
@@ -144,8 +143,7 @@
             position: relative;
         }
         .hero-tag {
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(4px);
+            background: rgba(255,255,255,0.25);
             padding: 6px 14px;
             border-radius: 20px;
             font-size: 13px;
