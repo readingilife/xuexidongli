@@ -280,7 +280,7 @@
         function generateFilename(name, grade) {
             const pinyin = nameToPinyin(name);
             const gradeNum = extractGradeNumber(grade);
-            return `${pinyin}${gradeNum}.html`;
+            return `yatai-${pinyin}-${gradeNum}.html`;
         }
 
         let studentsData = {
@@ -429,7 +429,7 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            showMessage(`报告已下载: ${filename}，请将文件保存到 xuexili 目录`, 'success');
+            showMessage(`报告已下载: ${filename}。下载完成后，双击「移动报告.command」可自动整理到 xuexili 目录`, 'success');
         }
 
         function generateReportHTML(data) {
