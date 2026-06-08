@@ -388,6 +388,123 @@
                 padding-bottom: 70px;
             }
         }
+
+        /* ===== 学习力评估报告功能 ===== */
+        .report-card {
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--c2-light), var(--c3-light));
+            border: 2px dashed var(--c3);
+            transition: all 0.3s;
+        }
+        .report-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(69, 183, 209, 0.2);
+            border-style: solid;
+        }
+        .report-card h3 {
+            color: var(--c3);
+        }
+
+        /* 模态框样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .modal-header h2 {
+            font-size: 22px;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .modal-header p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .modal-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .modal-input:focus {
+            border-color: var(--c3);
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .modal-btn-cancel {
+            background: var(--bg);
+            color: var(--text);
+        }
+        .modal-btn-cancel:hover {
+            background: #e9ecef;
+        }
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, var(--c2), var(--c3));
+            color: white;
+        }
+        .modal-btn-confirm:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .modal-error {
+            color: var(--c1);
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            min-height: 18px;
+        }
     </style>
 </head>
 <body>
@@ -500,12 +617,12 @@ function showToast() {
         </div>
     </div>
     <div class="card-grid">
-        <a href="basic_english_850.html" class="card tool-card" style="text-decoration:none; color:inherit;">
-            <h3>📝 背单词 - Basic English 850</h3>
-            <p>使用 C.K. Ogden 设计的 850 个核心词汇进行背单词练习，支持发音、音标和中文翻译。</p>
-            <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#667eea;">开始学习 →</div>
-        </a>
-    </div>
+            <a href="basic-english-850-tool/basic_english_850_quiz.html" class="card tool-card" style="text-decoration:none; color:inherit;">
+                <h3>🎯 挑战单词（背单词）</h3>
+                <p>三种测验方式随机出现：中文选英文、英文选中文、拼写练习，支持发音、音标和实时统计。</p>
+                <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#667eea;">开始挑战 →</div>
+            </a>
+        </div>
 </section>
 
 <!-- 学习资源 -->
@@ -528,7 +645,7 @@ function showToast() {
             <p>1-6年级课内重点 + 应用题型 + 课外拓展，一图看清每学期重难点。</p>
             <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#667eea;">查看详情 →</div>
         </a>
-        <a href="basic_english_850.html" class="card resource-card" style="text-decoration:none; color:inherit;">
+        <a href="basic-english-850-tool/basic_english_850.html" class="card resource-card" style="text-decoration:none; color:inherit;">
             <h3>Basic English - Ogden's 850 Words</h3>
             <p>C.K. Ogden 设计的 850 个核心词汇，覆盖牛津袖珍英语词典 90% 的概念，分 5 大类系统呈现。</p>
             <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#667eea;">查看详情 →</div>
@@ -561,6 +678,11 @@ function showToast() {
             <p><strong>Q: 如何平衡自主学习和指导？</strong></p>
             <p>A: 给予孩子足够的空间，同时在关键节点提供必要的指导和支持。</p>
         </div>
+        <div class="guide-item report-card" onclick="openReportModal()">
+            <h3>📊 查看孩子学习力评估与诊断报告</h3>
+            <p>点击查看孩子的学习力评估报告，了解孩子的优势、待提升问题和成长方向。</p>
+            <div style="margin-top:12px; text-align:right; font-size:13px; font-weight:600; color:#45B7D1;">查看报告 →</div>
+        </div>
     </div>
 </section>
 
@@ -579,6 +701,81 @@ function showToast() {
         </div>
     </div>
 </section>
+
+<!-- 学习力评估报告模态框 -->
+<div class="modal-overlay" id="reportModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>🔐 验证身份</h2>
+        </div>
+        <input type="text" class="modal-input" id="verificationInput" placeholder="请输入姓名全拼" autocomplete="off">
+        <div class="modal-error" id="errorMsg"></div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-cancel" onclick="closeReportModal()">取消</button>
+            <button class="modal-btn modal-btn-confirm" onclick="verifyAndOpen()">确认</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// 学生报告映射表 - 姓名全拼 -> 报告文件名
+const reportMap = {
+    'liupinyan': 'yatai-liupingyan-7.html'
+    // 可以在这里添加更多学生，例如：
+    // 'zhangsan': 'yatai-zhangsan-8.html',
+    // 'lisi': 'yatai-lisi-6.html'
+};
+
+function openReportModal() {
+    const modal = document.getElementById('reportModal');
+    const input = document.getElementById('verificationInput');
+    const errorMsg = document.getElementById('errorMsg');
+    
+    modal.classList.add('show');
+    input.value = '';
+    errorMsg.textContent = '';
+    input.focus();
+}
+
+function closeReportModal() {
+    const modal = document.getElementById('reportModal');
+    modal.classList.remove('show');
+}
+
+function verifyAndOpen() {
+    const input = document.getElementById('verificationInput');
+    const errorMsg = document.getElementById('errorMsg');
+    const namePinyin = input.value.trim().toLowerCase();
+    
+    if (!namePinyin) {
+        errorMsg.textContent = '请输入姓名全拼';
+        return;
+    }
+    
+    if (reportMap[namePinyin]) {
+        // 验证成功，跳转到对应报告
+        window.location.href = 'xuexili/' + reportMap[namePinyin];
+    } else {
+        errorMsg.textContent = '验证码不正确，请重试';
+        input.value = '';
+        input.focus();
+    }
+}
+
+// 点击模态框外部关闭
+document.getElementById('reportModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeReportModal();
+    }
+});
+
+// 回车键确认
+document.getElementById('verificationInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        verifyAndOpen();
+    }
+});
+</script>
 
 </body>
 </html>
