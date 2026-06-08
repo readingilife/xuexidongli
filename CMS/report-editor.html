@@ -160,6 +160,22 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -189,7 +205,7 @@
                 </div>
                 <div class="form-group">
                     <label>年级</label>
-                    <input type="text" id="grade" placeholder="请输入年级">
+                    <input type="text" id="grade" placeholder="请输入年级（如：7年级）">
                 </div>
                 <div class="form-group">
                     <label>评估日期</label>
@@ -225,10 +241,10 @@
                     <textarea id="markdownContent" placeholder="在此粘贴完整的 Markdown 报告内容..." style="min-height: 300px;"></textarea>
                 </div>
 
+                <div id="message" class="message"></div>
+
                 <div class="btn-group">
-                    <button class="btn btn-secondary" onclick="loadData()">📥 加载数据</button>
-                    <button class="btn btn-primary" onclick="generateHTML()">✨ 生成预览</button>
-                    <button class="btn btn-primary" onclick="downloadHTML()">💾 下载 HTML</button>
+                    <button class="btn btn-primary" onclick="saveReport()">💾 保存报告</button>
                 </div>
             </div>
         </div>
@@ -240,6 +256,33 @@
     </div>
 
     <script>
+        const pinyinMap = {
+            '刘':'liu','品':'pin','延':'yan'
+        };
+
+        function nameToPinyin(name) {
+            let result = '';
+            for (let char of name) {
+                if (pinyinMap[char]) {
+                    result += pinyinMap[char];
+                } else if (/[a-zA-Z0-9]/.test(char)) {
+                    result += char.toLowerCase();
+                }
+            }
+            return result;
+        }
+
+        function extractGradeNumber(gradeText) {
+            const match = gradeText.match(/\d+/);
+            return match ? match[0] : '';
+        }
+
+        function generateFilename(name, grade) {
+            const pinyin = nameToPinyin(name);
+            const gradeNum = extractGradeNumber(grade);
+            return `${pinyin}${gradeNum}.html`;
+        }
+
         let studentsData = {
             liupinyan: {
                 name: '刘品延',
@@ -296,9 +339,19 @@
 
         let currentStudent = 'liupinyan';
 
+        function showMessage(text, type) {
+            const msgEl = document.getElementById('message');
+            msgEl.textContent = text;
+            msgEl.className = 'message ' + type;
+            setTimeout(() => {
+                msgEl.className = 'message';
+            }, 3000);
+        }
+
         function init() {
             loadStudentData();
             renderLists();
+            generatePreview();
         }
 
         function loadStudentData() {
@@ -335,11 +388,13 @@
 
         function updateItem(type, index, value) {
             studentsData[currentStudent][type][index] = value;
+            generatePreview();
         }
 
         function removeItem(type, index) {
             studentsData[currentStudent][type].splice(index, 1);
             renderList(type, studentsData[currentStudent][type]);
+            generatePreview();
         }
 
         function saveCurrentData() {
@@ -350,7 +405,7 @@
             studentsData[currentStudent].markdown = document.getElementById('markdownContent').value;
         }
 
-        function generateHTML() {
+        function generatePreview() {
             saveCurrentData();
             const data = studentsData[currentStudent];
             const html = generateReportHTML(data);
@@ -358,20 +413,28 @@
             iframe.srcdoc = html;
         }
 
-        function downloadHTML() {
+        async function saveReport() {
             saveCurrentData();
             const data = studentsData[currentStudent];
             const html = generateReportHTML(data);
-            const filename = `yatai-${data.name.toLowerCase().replace(/\s/g, '')}-${data.grade.toLowerCase().replace(/\s/g, '')}.html`;
-            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const filename = generateFilename(data.name, data.grade);
+            
+            try {
+                const response = await fetch('/api/save-report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ html, filename })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showMessage(`报告已成功保存为: ${filename}`, 'success');
+                } else {
+                    showMessage('保存失败: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showMessage('请先启动服务器: cd CMS && npm install && npm start', 'error');
+            }
         }
 
         function generateReportHTML(data) {
@@ -566,6 +629,7 @@
                 currentStudent = id;
                 loadStudentData();
                 renderLists();
+                generatePreview();
             }
         }
 
@@ -573,13 +637,24 @@
             currentStudent = document.getElementById('studentSelect').value;
             loadStudentData();
             renderLists();
+            generatePreview();
         }
 
-        // 尝试从 localStorage 加载保存的数据
+        document.getElementById('studentName').addEventListener('input', generatePreview);
+        document.getElementById('school').addEventListener('input', generatePreview);
+        document.getElementById('grade').addEventListener('input', generatePreview);
+        document.getElementById('date').addEventListener('input', generatePreview);
+
+        document.getElementById('studentSelect').addEventListener('change', function() {
+            currentStudent = this.value;
+            loadStudentData();
+            renderLists();
+            generatePreview();
+        });
+
         const savedData = localStorage.getItem('studentsData');
         if (savedData) {
             studentsData = JSON.parse(savedData);
-            // 更新下拉选择
             const select = document.getElementById('studentSelect');
             select.innerHTML = '';
             Object.keys(studentsData).forEach(id => {
@@ -591,7 +666,6 @@
             select.value = currentStudent;
         }
 
-        // 自动保存到 localStorage
         setInterval(() => {
             saveCurrentData();
             localStorage.setItem('studentsData', JSON.stringify(studentsData));
