@@ -244,7 +244,7 @@
                 <div id="message" class="message"></div>
 
                 <div class="btn-group">
-                    <button class="btn btn-primary" onclick="saveReport()">💾 保存报告</button>
+                    <button class="btn btn-primary" onclick="saveReport()">� 下载报告</button>
                 </div>
             </div>
         </div>
@@ -413,28 +413,23 @@
             iframe.srcdoc = html;
         }
 
-        async function saveReport() {
+        function saveReport() {
             saveCurrentData();
             const data = studentsData[currentStudent];
             const html = generateReportHTML(data);
             const filename = generateFilename(data.name, data.grade);
             
-            try {
-                const response = await fetch('/api/save-report', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ html, filename })
-                });
-                
-                const result = await response.json();
-                if (result.success) {
-                    showMessage(`报告已成功保存为: ${filename}`, 'success');
-                } else {
-                    showMessage('保存失败: ' + result.error, 'error');
-                }
-            } catch (error) {
-                showMessage('请先启动服务器: cd CMS && npm install && npm start', 'error');
-            }
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showMessage(`报告已下载: ${filename}，请将文件保存到 xuexili 目录`, 'success');
         }
 
         function generateReportHTML(data) {
