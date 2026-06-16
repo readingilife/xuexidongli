@@ -6,7 +6,7 @@ import json
 import asyncio
 import edge_tts
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 
 def extract_words_with_category(html_file: str) -> List[Dict]:
@@ -47,23 +47,13 @@ def extract_words_with_category(html_file: str) -> List[Dict]:
     return words
 
 
-def extract_existing_data(quiz_file: str) -> Dict:
-    """从quiz.html中提取已有的音标和意思"""
-    with open(quiz_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # 直接匹配所有单词条目
-    entry_pattern = r"'([a-zA-Z]+)':\s*\{\s*phonetic:\s*'([^']*)'\s*,\s*meaning:\s*'([^']*)'\s*\}"
-    entries = re.findall(entry_pattern, content)
-    
-    word_data = {}
-    for word, phonetic, meaning in entries:
-        word_data[word] = {
-            'phonetic': phonetic,
-            'meaning': meaning
-        }
-    
-    print(f"Extracted {len(word_data)} words from quiz file")
+def extract_existing_data(data_file: str) -> Dict:
+    """从唯一词库 JSON 中读取已有数据，避免从页面反向解析。"""
+    if not os.path.exists(data_file):
+        return {}
+    entries = json.loads(Path(data_file).read_text(encoding='utf-8'))
+    word_data = {item['word']: item for item in entries}
+    print(f"Extracted {len(word_data)} words from data file")
     return word_data
 
 
@@ -265,7 +255,9 @@ def generate_word_info(word: str, existing_data: Dict) -> Dict:
         meaning = f"{word}"
     
     # 尝试用模板生成例句
-    if word in EXAMPLE_TEMPLATES:
+    if word in existing_data and existing_data[word].get('examples'):
+        examples = existing_data[word]['examples']
+    elif word in EXAMPLE_TEMPLATES:
         examples = EXAMPLE_TEMPLATES[word]
     else:
         # 通用例句
@@ -274,7 +266,7 @@ def generate_word_info(word: str, existing_data: Dict) -> Dict:
             {"en": f"Let's learn '{word}' together.", "cn": f"让我们一起学习'{word}'。"}
         ]
     
-    return {
+    result = {
         'word': word,
         'phonetic': phonetic,
         'meaning': meaning,
@@ -284,30 +276,34 @@ def generate_word_info(word: str, existing_data: Dict) -> Dict:
             'male': f"voice/{word}_male.mp3"
         }
     }
+    if word in existing_data:
+        for field in ('childMeaning', 'difficulty', 'tags', 'enabled'):
+            if field in existing_data[word]:
+                result[field] = existing_data[word][field]
+    return result
 
 
 async def main():
-    # 文件路径
-    base_dir = '/Users/apple/Documents/project/eduKB'
-    html_file = os.path.join(base_dir, 'basic_english_850.md')
-    quiz_file = os.path.join(base_dir, 'basic_english_850_quiz.html')
-    voice_dir = os.path.join(base_dir, 'voice')
-    output_file = os.path.join(base_dir, 'basic_english_850_data.json')
+    # 文件路径均相对于脚本，项目移动后也能正常工作。
+    base_dir = Path(__file__).resolve().parent
+    html_file = base_dir / 'basic_english_850.html'
+    voice_dir = base_dir / 'voice'
+    output_file = base_dir / 'basic_english_850_data.json'
     
     # 1. 提取单词和分类
     print("步骤1: 提取单词和分类...")
-    words_with_cat = extract_words_with_category(html_file)
+    words_with_cat = extract_words_with_category(str(html_file))
     print(f"共找到 {len(words_with_cat)} 个单词")
     
     # 2. 提取已有数据
     print("\n步骤2: 提取已有的音标和意思...")
-    existing_data = extract_existing_data(quiz_file)
+    existing_data = extract_existing_data(str(output_file))
     print(f"已有 {len(existing_data)} 个单词的数据")
     
     # 3. 生成发音文件
     print("\n步骤3: 检查并生成发音文件...")
     words = [w['word'] for w in words_with_cat]
-    await generate_missing_voices(words, voice_dir)
+    await generate_missing_voices(words, str(voice_dir))
     
     # 4. 生成完整数据
     print("\n步骤4: 生成完整单词数据...")

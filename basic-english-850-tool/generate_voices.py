@@ -53,14 +53,14 @@ async def generate_voice(word, output_dir, voice_type):
     return filepath
 
 async def main():
-    # 文件路径
-    html_file = '/Users/apple/Documents/project/eduKB/basic_english_850.md'
-    base_dir = '/Users/apple/Documents/project/eduKB'
-    voice_dir = os.path.join(base_dir, 'voice')
+    # 文件路径均相对于脚本，项目移动后也能正常工作。
+    base_dir = Path(__file__).resolve().parent
+    html_file = base_dir / 'basic_english_850.html'
+    voice_dir = base_dir / 'voice'
     
     # 提取单词
     print("正在提取单词...")
-    words = extract_words(html_file)
+    words = extract_words(str(html_file))
     print(f"共找到 {len(words)} 个单词")
     
     # 为所有单词生成语音
@@ -75,8 +75,8 @@ async def main():
     total = len(words)
     for i, word in enumerate(words, 1):
         print(f"\n[{i}/{total}] 处理单词: {word}")
-        await generate_voice(word, voice_dir, 'male')
-        await generate_voice(word, voice_dir, 'female')
+        await generate_voice(word, str(voice_dir), 'male')
+        await generate_voice(word, str(voice_dir), 'female')
     
     print("\n✅ 所有语音文件生成完成！")
 
